@@ -36,11 +36,16 @@ const HomePage = () => {
       {loading && pokemons.length > 0 && <Loader />}
 
       {mode === 'pagination' && !loading && !error && (
-        <PaginationControls currentPage={page} onPageChange={setPage} totalPages={totalPages} pageSize={pageSize} />
+        <PaginationControls
+          currentPage={page}
+          onPageChange={setPage}
+          totalPages={totalPages}
+          pageSize={pageSize}
+        />
       )}
 
       {mode === 'loadmore' && !loading && !error && (
-        <LoadMoreButton onClick={() => setPage((prev) => prev + 1)} />
+        <LoadMoreButton onClick={() => setPage(prev => prev + 1)} />
       )}
     </div>
   );

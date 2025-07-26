@@ -1,8 +1,8 @@
 interface Props {
   currentPage: number;
   onPageChange: (page: number) => void;
-  totalPages?: number; 
-  pageSize?: number; 
+  totalPages?: number;
+  pageSize?: number;
 }
 
 const PaginationControls = ({
@@ -52,9 +52,7 @@ const PaginationControls = ({
               key={i}
               onClick={() => onPageChange(p)}
               className={`px-3 py-1 text-sm rounded border ${
-                p === currentPage
-                  ? 'bg-black text-white font-bold'
-                  : 'bg-white'
+                p === currentPage ? 'bg-black text-white font-bold' : 'bg-white'
               }`}
             >
               {p}
@@ -63,7 +61,7 @@ const PaginationControls = ({
             <span key={i} className="px-2 text-gray-500 text-sm">
               ...
             </span>
-          )
+          ),
         )}
 
         <button

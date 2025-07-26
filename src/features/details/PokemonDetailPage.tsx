@@ -1,6 +1,4 @@
 import { useParams, Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { getPokemonDetails } from '../../api/pokemonApi';
 import Loader from '../../components/Loader';
 import ErrorMessage from '../../components/ErrorMessage';
 import PokemonHeader from './components/PokemonHeader';
@@ -8,33 +6,21 @@ import PokemonImageAndTypes from './components/PokemonImageAndTypes';
 import PokemonPhysicalInfo from './components/PokemonPhysicalInfo';
 import PokemonStats from './components/PokemonStats';
 import PokemonAbilities from './components/PokemonAbilities';
-import type { PokemonDetails } from '../../types/pokemon';
+import { useQuery } from '@tanstack/react-query';
+import { getPokemonDetails } from '../../api/pokemonApi';
 
 const PokemonDetailPage = () => {
   const { name } = useParams<{ name: string }>();
-  const [data, setData] = useState<PokemonDetails | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
 
-  const fetchDetails = async () => {
-    try {
-      setLoading(true);
-      setError(false);
-      const res = await getPokemonDetails(name!);
-      setData(res);
-    } catch {
-      setError(true);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const { data, isLoading, isError, refetch } = useQuery({
+    queryKey: ['pokemonDetails', name],
+    queryFn: () => getPokemonDetails(name!),
+    enabled: !!name,
+    staleTime: 1000 * 60 * 5,
+  });
 
-  useEffect(() => {
-    fetchDetails();
-  }, [name]);
-
-  if (loading) return <Loader />;
-  if (error || !data) return <ErrorMessage onRetry={fetchDetails} />;
+  if (isLoading) return <Loader />;
+  if (isError || !data) return <ErrorMessage onRetry={refetch} />;
 
   const image = data.sprites.other['official-artwork'].front_default;
 
@@ -62,9 +48,7 @@ const PokemonDetailPage = () => {
             <PokemonAbilities abilities={data.abilities} />
 
             <h3 className="text-lg font-bold mb-1">Base Experience</h3>
-            <p className="text-purple-600 font-extrabold text-xl">
-              {data.base_experience} XP
-            </p>
+            <p className="text-purple-600 font-extrabold text-xl">{data.base_experience} XP</p>
           </div>
         </div>
       </div>

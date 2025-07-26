@@ -1,13 +1,18 @@
 import { Routes, Route } from 'react-router-dom';
-import HomePage from '../features/home/HomePage';
-import PokemonDetailPage from '../features/details/PokemonDetailPage';
+import { lazy, Suspense } from 'react';
+import Loader from '../components/Loader';
+
+const HomePage = lazy(() => import('../features/home/HomePage'));
+const PokemonDetailPage = lazy(() => import('../features/details/PokemonDetailPage'));
 
 const AppRoutes = () => {
   return (
-    <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/pokemon/:name" element={<PokemonDetailPage />} />
-    </Routes>
+    <Suspense fallback={<Loader />}>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/pokemon/:name" element={<PokemonDetailPage />} />
+      </Routes>
+    </Suspense>
   );
 };
 

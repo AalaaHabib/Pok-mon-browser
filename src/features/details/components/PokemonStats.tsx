@@ -9,7 +9,7 @@ const PokemonStats = ({ stats }: Props) => {
     <>
       <h3 className="text-lg font-bold mb-2">Base Stats</h3>
       <div className="space-y-2 mb-6">
-        {stats.map((s) => (
+        {stats.map(s => (
           <div key={s.stat.name}>
             <div className="flex justify-between text-sm">
               <span className="capitalize">{s.stat.name}</span>

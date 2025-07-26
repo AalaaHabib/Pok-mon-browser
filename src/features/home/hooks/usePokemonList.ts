@@ -16,9 +16,7 @@ export const usePokemons = (mode: 'pagination' | 'loadmore', page: number) => {
       setLoading(true);
       setError(false);
       const data = await getPokemonList(PAGE_LIMIT, offset);
-      setPokemons((prev) =>
-        mode === 'pagination' ? data.results : [...prev, ...data.results]
-      );
+      setPokemons(prev => (mode === 'pagination' ? data.results : [...prev, ...data.results]));
     } catch (err) {
       setError(true);
     } finally {

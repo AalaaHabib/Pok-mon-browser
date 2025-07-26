@@ -1,4 +1,4 @@
-import type { PokemonType } from "../../../types/pokemon";
+import type { PokemonType } from '../../../types/pokemon';
 
 type Props = {
   image: string;
@@ -13,8 +13,11 @@ const PokemonImageAndTypes = ({ image, types }: Props) => {
       </div>
 
       <div className="flex gap-2 mb-4 flex-wrap justify-center">
-        {types.map((t) => (
-          <span key={t.type.name} className="px-3 py-1 bg-red-500 text-white text-sm rounded-full capitalize">
+        {types.map(t => (
+          <span
+            key={t.type.name}
+            className="px-3 py-1 bg-red-500 text-white text-sm rounded-full capitalize"
+          >
             {t.type.name}
           </span>
         ))}
