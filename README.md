@@ -4,7 +4,7 @@ A responsive React + TypeScript Pokédex web application that fetches data from 
 
 ## 🌐 Live Demo
 
-[🔗 View the Deployed App]([https://your-deployment-url.com](https://alaa-habib-pokemon.vercel.app))
+[🔗 View the Deployed App](https://alaa-habib-pokemon.vercel.app/)
 
 ## 🚀 Features
 
