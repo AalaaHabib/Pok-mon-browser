@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { getPokemonList } from '../../../api/pokemonApi';
-import type { PokemonListResponse } from '../../../types/pokemon';
+import type { PokemonListResponse, PokemonSummary } from '../../../types/pokemon';
 
 const PAGE_LIMIT = 20;
 
@@ -24,11 +24,14 @@ export const usePokemons = (mode: 'pagination' | 'loadmore', page: number) => {
         if (mode === 'pagination') return data.results;
 
         const existingNames = new Set(prev.map(p => p.name));
-        const uniqueNewPokemons = data.results.filter(p => !existingNames.has(p.name));
+        const uniqueNewPokemons = data.results.filter(
+          (p: PokemonSummary) => !existingNames.has(p.name),
+        );
 
         return [...prev, ...uniqueNewPokemons];
       });
     } catch (err) {
+      console.warn(err);
       setError(true);
     } finally {
       setLoading(false);

@@ -1,5 +1,3 @@
-import React from 'react';
-
 const PokemonDetailSkeleton = () => {
   return (
     <div className="animate-pulse space-y-6 bg-white p-6 rounded-xl shadow-md max-w-3xl mx-auto">

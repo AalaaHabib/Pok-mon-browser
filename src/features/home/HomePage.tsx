@@ -25,7 +25,7 @@ const HomePage = () => {
     if (mode === 'loadmore' && !loading && bottomRef.current) {
       bottomRef.current.scrollIntoView({ behavior: 'smooth' });
     }
-  }, [pokemons.length]);
+  }, [pokemons.length, mode, loading]);
 
   return (
     <div
