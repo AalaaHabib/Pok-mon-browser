@@ -16,7 +16,15 @@ export const usePokemons = (mode: 'pagination' | 'loadmore', page: number) => {
       setLoading(true);
       setError(false);
       const data = await getPokemonList(PAGE_LIMIT, offset);
-      setPokemons(prev => (mode === 'pagination' ? data.results : [...prev, ...data.results]));
+
+      setPokemons(prev => {
+        if (mode === 'pagination') return data.results;
+
+        const existingNames = new Set(prev.map(p => p.name));
+        const uniqueNewPokemons = data.results.filter(p => !existingNames.has(p.name));
+
+        return [...prev, ...uniqueNewPokemons];
+      });
     } catch (err) {
       setError(true);
     } finally {
