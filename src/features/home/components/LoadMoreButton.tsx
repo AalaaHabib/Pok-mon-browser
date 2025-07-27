@@ -1,12 +1,8 @@
-interface Props {
-  onClick: () => void;
-}
-
-const LoadMoreButton = ({ onClick }: Props) => (
-  <div className="text-center mt-6">
+const LoadMoreButton = ({ onClick }: { onClick: () => void }) => (
+  <div className="flex justify-center mt-6">
     <button
       onClick={onClick}
-      className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+      className="px-6 py-2 text-sm font-medium bg-black text-white rounded-full hover:bg-gray-800 transition"
     >
       Load More
     </button>

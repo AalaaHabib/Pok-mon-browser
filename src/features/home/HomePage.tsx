@@ -29,7 +29,7 @@ const HomePage = () => {
 
   return (
     <div
-      className={`p-4 w-full min-h-screen ${mode === 'pagination' ? 'bg-[#f0f4ff]' : 'bg-[#e6fef1]'}`}
+      className={`px-8 py-4 w-full min-h-screen ${mode === 'pagination' ? 'bg-[#f0f4ff]' : 'bg-[#e6fef1]'}`}
     >
       <div className="text-center mb-6">
         <h1 className="text-4xl font-bold flex justify-center items-center gap-2">
