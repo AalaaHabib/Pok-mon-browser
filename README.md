@@ -33,7 +33,7 @@ A responsive React + TypeScript Pokédex web application that fetches data from 
 - **PokéAPI** as the data source
 
 ## 🧩 Folder Structure
-
+```
 src/
 ├── api/
 │   └── pokemonApi.ts              # API functions for fetching Pokémon data
@@ -66,7 +66,7 @@ src/
 │       └── HomePage.tsx
 ├── App.tsx
 └── main.tsx
-
+```
 ## ⚙️ Installation & Setup
 # 1. Clone the repository
 git clone https://github.com/AalaaHabib/Pok-mon-browser.git
