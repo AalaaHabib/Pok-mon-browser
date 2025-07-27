@@ -6,6 +6,7 @@ const PAGE_LIMIT = 20;
 
 export const usePokemons = (mode: 'pagination' | 'loadmore', page: number) => {
   const [pokemons, setPokemons] = useState<PokemonListResponse['results']>([]);
+  const [count, setCount] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
@@ -16,6 +17,8 @@ export const usePokemons = (mode: 'pagination' | 'loadmore', page: number) => {
       setLoading(true);
       setError(false);
       const data = await getPokemonList(PAGE_LIMIT, offset);
+
+      setCount(data.count);
 
       setPokemons(prev => {
         if (mode === 'pagination') return data.results;
@@ -42,6 +45,6 @@ export const usePokemons = (mode: 'pagination' | 'loadmore', page: number) => {
     error,
     refetch: fetchData,
     pageSize: PAGE_LIMIT,
-    totalPages: 66,
+    totalPages: Math.ceil(count / PAGE_LIMIT),
   };
 };

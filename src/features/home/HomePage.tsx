@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Loader from '../../components/Loader';
 import ErrorMessage from '../../components/ErrorMessage';
 import ModeSwitch from '../../components/ModeSwitch';
@@ -12,6 +12,8 @@ const HomePage = () => {
   const [mode, setMode] = useState<'pagination' | 'loadmore'>('pagination');
   const [page, setPage] = useState(1);
 
+  const bottomRef = useRef<HTMLDivElement | null>(null);
+
   const { pokemons, loading, error, refetch, pageSize, totalPages } = usePokemons(mode, page);
 
   const handleModeChange = (selectedMode: 'pagination' | 'loadmore') => {
@@ -19,8 +21,16 @@ const HomePage = () => {
     setPage(1);
   };
 
+  useEffect(() => {
+    if (mode === 'loadmore' && !loading && bottomRef.current) {
+      bottomRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [pokemons.length]);
+
   return (
-    <div className="p-4 w-full bg-[#f0f4ff] min-h-screen">
+    <div
+      className={`p-4 w-full min-h-screen ${mode === 'pagination' ? 'bg-[#f0f4ff]' : 'bg-[#e6fef1]'}`}
+    >
       <div className="text-center mb-6">
         <h1 className="text-4xl font-bold flex justify-center items-center gap-2">
           <span>⚡</span> <span>Pokédex</span>
@@ -41,7 +51,16 @@ const HomePage = () => {
 
       {!loading && !error && <PokemonList pokemons={pokemons} />}
 
-      {loading && pokemons.length > 0 && <Loader />}
+      {loading && pokemons.length > 0 && (
+        <div className="flex flex-col items-center gap-2 mt-6 text-sm text-gray-600">
+          <Loader />
+          <span>Loading more Pokémon…</span>
+        </div>
+      )}
+
+      {!loading && !error && (
+        <p className="text-center mt-6 text-sm text-gray-600">Showing {pokemons.length} Pokémon</p>
+      )}
 
       {mode === 'pagination' && !loading && !error && (
         <PaginationControls
@@ -55,6 +74,8 @@ const HomePage = () => {
       {mode === 'loadmore' && !loading && !error && (
         <LoadMoreButton onClick={() => setPage(prev => prev + 1)} />
       )}
+
+      <div ref={bottomRef} />
     </div>
   );
 };

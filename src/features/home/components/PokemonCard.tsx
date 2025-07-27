@@ -13,7 +13,7 @@ const PokemonCard = ({ name, image, id }: Props) => {
       className="bg-white rounded-lg shadow hover:shadow-lg transition border border-gray-200 p-4 text-center"
     >
       <div className="bg-[#f2f4f7] rounded-md p-4 mb-3 flex justify-center items-center">
-        <img src={image} alt={name} className="w-24 h-24 object-contain" />
+        <img src={image} alt={name} className="max-w-[80px] sm:max-w-[96px] object-contain" />
       </div>
 
       <p className="capitalize font-semibold text-lg">{name}</p>
