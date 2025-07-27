@@ -13,6 +13,7 @@ const HomePage = () => {
   const [page, setPage] = useState(1);
 
   const bottomRef = useRef<HTMLDivElement | null>(null);
+  const prevScrollY = useRef<number | null>(null);
 
   const { pokemons, loading, error, refetch, pageSize, totalPages } = usePokemons(mode, page);
 
@@ -21,15 +22,27 @@ const HomePage = () => {
     setPage(1);
   };
 
+  const handleLoadMore = () => {
+    prevScrollY.current = window.scrollY;
+    setPage(prev => prev + 1);
+  };
+
   useEffect(() => {
-    if (mode === 'loadmore' && !loading && bottomRef.current) {
-      bottomRef.current.scrollIntoView({ behavior: 'smooth' });
+    if (mode === 'loadmore' && !loading) {
+      if (prevScrollY.current !== null) {
+        requestAnimationFrame(() => {
+          window.scrollTo({ top: prevScrollY.current! + 200!, behavior: 'auto' });
+          prevScrollY.current = null;
+        });
+      }
     }
   }, [pokemons.length, mode, loading]);
 
   return (
     <div
-      className={`px-8 py-4 w-full min-h-screen ${mode === 'pagination' ? 'bg-[#f0f4ff]' : 'bg-[#e6fef1]'}`}
+      className={`sm:px-4 md:px-12  py-4 w-full min-h-screen ${
+        mode === 'pagination' ? 'bg-[#f0f4ff]' : 'bg-[#e6fef1]'
+      }`}
     >
       <div className="text-center mb-6">
         <h1 className="text-4xl font-bold flex justify-center items-center gap-2">
@@ -71,9 +84,7 @@ const HomePage = () => {
         />
       )}
 
-      {mode === 'loadmore' && !loading && !error && (
-        <LoadMoreButton onClick={() => setPage(prev => prev + 1)} />
-      )}
+      {mode === 'loadmore' && !loading && !error && <LoadMoreButton onClick={handleLoadMore} />}
 
       <div ref={bottomRef} />
     </div>
