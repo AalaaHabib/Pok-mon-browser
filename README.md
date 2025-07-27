@@ -1,69 +1,81 @@
-# React + TypeScript + Vite
+# ⚡ Pokédex Browser
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A responsive React + TypeScript Pokédex web application that fetches data from the [PokéAPI](https://pokeapi.co) and allows users to explore Pokémon with two browsing modes: **Pagination** and **Load More (Infinite Scroll)**.
 
-Currently, two official plugins are available:
+## 🌐 Live Demo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+[🔗 View the Deployed App]([https://your-deployment-url.com](https://alaa-habib-pokemon.vercel.app))
 
-## Expanding the ESLint configuration
+## 🚀 Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- 🐱‍👤 Browse Pokémon using:
+  - Pagination controls
+  - Load more (infinite scroll)
+- 🖼️ Official artwork fetched via PokéAPI
+- 🧭 Detail page for each Pokémon (image, stats, abilities, types)
+- 🌈 Responsive UI (Grid layout)
+- ☁️ Deployed via Vercel / Netlify
+- 🧪 Error boundary & loading skeletons
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 📸 Screenshots
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+| Home | Detail Page |
+|------|-------------|
+| ![Home](./screenshots/home.png) | ![Detail](./screenshots/detail.png) |
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
-```
+## 🛠️ Tech Stack
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- **React** + **TypeScript**
+- **Tailwind CSS**
+- **React Router**
+- **React Query**
+- **Vite** (for fast development)
+- **PokéAPI** as the data source
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x';
-import reactDom from 'eslint-plugin-react-dom';
+## 🧩 Folder Structure
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
-```
+src/
+├── api/
+│   └── pokemonApi.ts              # API functions for fetching Pokémon data
+├── assets/
+│   └── react.svg
+├── components/                    # Reusable shared UI components
+│   ├── ErrorBoundary.tsx
+│   ├── ErrorMessage.tsx
+│   ├── Loader.tsx
+│   └── ModeSwitch.tsx
+├── features/
+│   ├── details/                   # Pokémon detail page and its subcomponents
+│   │   ├── components/
+│   │   │   ├── PokemonAbilities.tsx
+│   │   │   ├── PokemonDetailSkeleton.tsx
+│   │   │   ├── PokemonHeader.tsx
+│   │   │   ├── PokemonImageAndTypes.tsx
+│   │   │   ├── PokemonPhysicalInfo.tsx
+│   │   │   └── PokemonStats.tsx
+│   │   └── PokemonDetailPage.tsx
+│   └── home/                      # Home page with list view, pagination & load more
+│       ├── components/
+│       │   ├── LoadMoreButton.tsx
+│       │   ├── PaginationControls.tsx
+│       │   ├── PokemonCard.tsx
+│       │   ├── PokemonList.tsx
+│       │   └── PokemonSkeletonCard.tsx
+│       ├── hooks/
+│       │   └── usePokemonList.ts
+│       └── HomePage.tsx
+├── App.tsx
+└── main.tsx
+
+## ⚙️ Installation & Setup
+# 1. Clone the repository
+git clone https://github.com/AalaaHabib/Pok-mon-browser.git
+cd Pok-mon-browser
+
+# 2. Install dependencies
+npm install
+
+# 3. Start development server
+npm run dev
+
+
