@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import Loader from '../../components/Loader';
-import ErrorMessage from '../../components/Loader';
+import ErrorMessage from '../../components/ErrorMessage';
+import ModeSwitch from '../../components/ModeSwitch';
 import PaginationControls from './components/PaginationControls';
 import LoadMoreButton from './components/LoadMoreButton';
 import PokemonList from './components/PokemonList';
-import ModeSwitch from '../../components/ModeSwitch';
+import PokemonSkeletonCard from './components/PokemonSkeletonCard';
 import { usePokemons } from './hooks/usePokemonList';
 
 const HomePage = () => {
@@ -28,10 +29,17 @@ const HomePage = () => {
         <ModeSwitch mode={mode} onModeChange={handleModeChange} />
       </div>
 
-      {loading && pokemons.length === 0 && <Loader />}
+      {loading && pokemons.length === 0 && (
+        <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          {Array.from({ length: 8 }).map((_, index) => (
+            <PokemonSkeletonCard key={index} />
+          ))}
+        </div>
+      )}
+
       {error && <ErrorMessage onRetry={refetch} />}
 
-      <PokemonList pokemons={pokemons} />
+      {!loading && !error && <PokemonList pokemons={pokemons} />}
 
       {loading && pokemons.length > 0 && <Loader />}
 

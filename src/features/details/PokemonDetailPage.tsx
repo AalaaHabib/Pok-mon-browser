@@ -1,5 +1,5 @@
 import { useParams, Link } from 'react-router-dom';
-import Loader from '../../components/Loader';
+import PokemonDetailSkeleton from './components/PokemonDetailSkeleton';
 import ErrorMessage from '../../components/ErrorMessage';
 import PokemonHeader from './components/PokemonHeader';
 import PokemonImageAndTypes from './components/PokemonImageAndTypes';
@@ -19,7 +19,7 @@ const PokemonDetailPage = () => {
     staleTime: 1000 * 60 * 5,
   });
 
-  if (isLoading) return <Loader />;
+  if (isLoading) return <PokemonDetailSkeleton />;
   if (isError || !data) return <ErrorMessage onRetry={refetch} />;
 
   const image = data.sprites.other['official-artwork'].front_default;
